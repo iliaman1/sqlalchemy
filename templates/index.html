@@ -1,4 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<ul>
+    {% for u in info %}
+    <li><p>id: {{u.id}}, email: {{u.email}}</p>
+    <ul>
+    <li><p>Name: {{u.pr.name}}</p></li>
+    <li><p>Age: {{u.pr.old}}</p></li>
+    <li><p>City: {{u.pr.city}}</p></li>
+    </ul>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

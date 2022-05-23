@@ -16,6 +16,8 @@ class Users(db.Model):
     psw = db.Column(db.String(500), nullable=True)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
+    pr = db.relationship('Profiles', backref='users', uselist=False)
+
     def __repr__(self):
         return f"<users {self.id}>"
 
@@ -34,7 +36,13 @@ class Profiles(db.Model):
 
 @app.route("/")
 def index():
-    return render_template("index.html", title="Главная")
+    info = []
+    try:
+        info = Users.query.all()
+    except:
+        print("Error read from BD")
+
+    return render_template("index.html", title="Главная", info=info)
 
 
 @app.route("/register", methods=("POST", "GET"))
